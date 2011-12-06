@@ -1,0 +1,402 @@
+=head1 NAME
+
+quvi - query media tool
+
+=head1 SYNOPSIS
+
+quvi [options] [url ...] [file ...]
+
+=head1 DESCRIPTION
+
+quvi is a command line tool for parsing flash media stream URLs.
+It supports many websites including YouTube and Dailymotion.
+
+=head1 COMMAND LINE PARSER
+
+GNU gengetopt is very flexible.
+
+=head2 Example
+
+  quvi --category http --category rtmp --verbosity debug \
+       --export-level +errors --feature -verify --feature -resolve
+
+=head2 Same as above but with short options
+
+  quvi -c http -c rtmp -v debug -l +errors -e -verify -e -resolve
+
+=head2 Or even simply
+
+  quvi -ch -cr -vd -l+ -e-v -e-r
+
+=head1 OPTIONS
+
+quvi reads standard input by default. It can also read the URLs from
+files but expects each URL to be separated by a newline character.
+
+=head2 -h, --help
+
+Print help and exit.
+
+=head2 --version
+
+Print program version and exit.
+
+=head2 --license
+
+Print license and exit.
+
+=head2 --support [I<arg>]
+
+Print supported hosts and exit. If I<arg> is present, the program
+checks whether the I<arg> is supported.
+
+The default behaviour, without an I<arg>, causes quvi to print the
+supported websites. The B<first> string is the domain string which
+is, in fact, a (Lua) pattern used to match the URL to a libquvi
+script. The B<second> string is, I<now obsolete> (see below), an
+array containing the supported formats specific to the host.
+
+Use C<--query-formats> if you need to check an URL for the available
+formats.
+
+See also L</EXAMPLES>.
+
+=head2 -e, --feature I<arg>
+
+Enable or disable a feature. See also L</EXAMPLES>. Possible values:
+
+=head3 resolve (default)
+
+Resolve HTTP directions, e.g. shortened URLs. See below.
+
+=head3 -resolve
+
+Do not resolve HTTP redirections. When used, quvi will not be able to
+resolve most of the "shortened URLs" produced by different URL shortening
+services.
+
+Note that libquvi scripts that explicitly (need to) resolve redirections
+will continue to do so even if this switch is used.
+
+=head3 verify (default)
+
+Verify media stream URL after parsing. See below.
+
+=head3 -verify
+
+Do not verify media stream URL after parsing. When used, some
+media details, e.g. content length, will not become available.
+
+Note that libquvi skips the verification automatically with all
+non-HTTP media stream URLs.
+
+=head3 proxy (default)
+
+Use a HTTP proxy with connections if it is defined using either
+the C<--proxy> or the B<http_proxy> value. See below.
+
+=head3 -proxy
+
+Disable use of a HTTP proxy completely. Proxy will not be used even
+if it is defined in B<http_proxy>.
+
+=head2 -d, --export-format I<arg> (=json)
+
+Set the interchange format in which the data is to be printed.
+Possible values:
+
+ json .. Print in JSON (default)
+ xml  .. Print in XML
+
+=head2 -l, --export-level I<arg> (=media)
+
+Set level of the exported interchange data. Possible values:
+
+ media    .. Media only (default)
+ +errors  .. Media and error messages
+
+See also C<--export-format>.
+
+=head2 -v, --verbosity I<arg> (=verbose)
+
+Set the verbosity level of the printed messages. Possible values:
+
+ debug   .. Everything, including libcurl generated messages
+ verbose .. Most messages (default)
+ quiet   .. Errors and warnings only
+ mute    .. Nothing at all
+
+=head2 --exec I<arg>
+
+Invoke I<arg> after each successfully parsed URL. The following
+specifiers are supported:
+
+ %u  ..  Media stream URL
+ %t  ..  Media title
+
+Note that I<each> occurence of the specifier will be replaced within
+the I<arg>. quvi accepts multiple occurrences of C<--exec>. See also
+L</EXAMPLES>.
+
+=head2 -c, --category I<arg> (=all)
+
+Enable the level of the libquvi script categories. By default, all of the
+categories levels are enabled. Possible values:
+
+ http  .. HTTP category scripts only
+ rtmp  .. RTMP ...
+ rtsp  .. RTSP ...
+ mms   .. MMS ...
+ all   .. All of the above
+
+quvi accepts multiple occurrences of C<--category>. See also L</EXAMPLES>.
+
+
+=head2 -F, --query-formats
+
+Query available formats to the URL. The returned array is created
+from the data returned by the server. You can use the
+I<format strings> in this array with C<--format>.
+
+The available formats are determined by the I<libquvi script>
+responsible for parsing the media details.
+
+See also C<--format>.
+
+=head2 -f, --format I<arg> (=default)
+
+Query media details for the format I<arg>. The I<arg> may also be
+C<default> or C<best>. The I<arg> value is used with B<all> of the
+URLs fed to quvi.
+
+If the I<arg> is C<best>, the I<libquvi script> responsible for parsing
+the media details will determine the C<best> format available to an URL.
+
+If the I<arg> is C<default> the I<libquvi script> attempts to return an
+URL to whatever it deemed to be the C<default> format for the URL.
+
+The I<libquvi script> will return the C<default> format if the I<arg>
+was unrecognized or the requested format was not available.
+
+You can find more information about the YouTube specific "fmt" IDs at:
+ <http://en.wikipedia.org/wiki/YouTube#Quality_and_codecs>
+
+See also C<--query-formats>.
+
+=head2 --agent I<arg> (=Mozilla/5.0)
+
+Identify quvi as I<arg> to the HTTP servers. Default is "Mozilla/5.0".
+
+=head2 --proxy I<arg>
+
+Use proxy for HTTP connections, e.g. "http://foo:1234". You can also
+define B<http_proxy> environment setting to for the same effect.
+
+=head2 --connect-timeout I<seconds>
+
+Maximum seconds allowed connection to server take. Default is 30.
+
+=head1 DEPRECATED
+
+The following options have been marked as "deprecated" and will be
+removed in the later versions of quvi.
+
+=head2 --no-proxy
+
+Disable use of HTTP proxy completely. Proxy will not be used even
+if it is defined in B<http_proxy>. Use C<--feature> instead.
+
+=head2 -r, --no-resolve
+
+Do not resolve HTTP redirections. When used, quvi will not be able
+to resolve most of the "shortened URLs" produced by different URL
+shortening services.
+
+Note that libquvi scripts that explicitly (need to) resolve
+redirections will continue to do so even if this switch is used.
+Use C<--feature> instead.
+
+=head2 -n, --no-verify
+
+Do not verify media stream URL after parsing. When used, some
+media details, e.g. content length, will not become available.
+
+Note that libquvi skips the verification automatically with all
+non-HTTP media stream URLs. Use C<--feature> instead.
+
+=head2 -q, --quiet
+
+Turn off all output printed to stderr (excl. any errors).
+If C<--verbose-libcurl> is specified, libcurl will continue
+to print messages to stderr. The media details will still
+be printed to stdout. Use C<--verbosity> instead.
+
+=head2 --verbose-libcurl
+
+Turn on libcurl verbose mode. Use C<--verbosity> instead.
+
+=head2 --xml
+
+Print the media details (and errors, if C<--export-level=+errors> is specified)
+in XML. Use C<--export-format> instead.
+
+=head2 --category-http
+
+Enable category HTTP webscripts. This is the default category.
+Use C<--category> instead.
+
+=head2 --category-mms
+
+Enable category MMS webscripts. Use C<--category> instead.
+
+=head2 --category-rtsp
+
+Enable category RTSP webscripts. Use C<--category> instead.
+
+=head2 --category-rtmp
+
+Enable category RTMP webscripts. Use C<--category> instead.
+
+=head2 --category-all
+
+Enable all categories of webscripts. Use C<--category> instead.
+
+=head1 EXAMPLES
+
+Always quote the URLs in the command line as seen below. Many URLs
+contain parameters that may otherwise cause the shell to behave
+with unexpected results.
+
+=head2 quvi "URL"
+
+Typical use.
+
+=head2 quvi -d xml "URL"
+
+Same but print the results in XML.
+
+=head2 quvi -f best "URL"
+
+Get for the best available format of the media. This assumes E<gt>1
+formats are supported, otherwise will fallback to default format.
+
+=head2 quvi -F "URL"
+
+Query available formats to the URL. Use one of the returned format
+strings from this list with C<--format>.
+
+=head2 quvi --support
+
+Print the supported websites. The domain strings are patterns.
+
+=head2 quvi --support -c rtmp -c mms
+
+Same but print only those from the RTMP and the MMS categories.
+
+=head2 quvi --support "URL"
+
+Check whether the URL is supported. This does not require an Internet
+connection but will fail with most "shortened" URLs.
+
+=head2 quvi -vm -e-r -e-v "URL" --exec "echo %t" --exec "vlc %u"
+
+Mute message output (-vm), do not resolve HTTP redirections (-e-r) and
+skip media stream URL verification (-e-v). Print media title using
+echo(1), open media stream URL in vlc(1).
+
+=head1 FILES
+
+=head2 $HOME/.quvirc
+
+Most of the command line options can also be defined in the
+configuration file. For example:
+
+ agent = foo/1.0            # --agent
+ proxy = http://foo:1234    # --proxy
+
+You can also use $QUVI_HOME instead of $HOME.
+
+=head1 ENVIRONMENT
+
+=head2 quvi
+
+=head3 QUVI_HOME
+
+Path to the directory with the configuration file. If set, quvi
+command uses this instead of $HOME.
+
+=head2 libquvi
+
+=head3 LIBQUVI_SCRIPTSDIR
+
+Path to the libquvi-scripts directory. Overrides the libquvi default
+search paths for the scripts, e.g.:
+
+ env LIBQUVI_SCRIPTSDIR=/dir/with/quvi/lua/scripts/ quvi
+
+Make sure it points to a directory containing the lua/ directory with the
+expected "util/*.lua" and "website/quvi/*.lua" scripts that are normally
+installed with libquvi-scripts.
+
+For a totorial that covers these steps, see the libquvi C API
+documentation at:
+
+  <http://quvi.sourceforge.net/doc/>
+
+=head3 LIBQUVI_SHOW_SCANDIR
+
+If set, libquvi prints the lua script search paths to the stderr.
+
+=head3 LIBQUVI_SHOW_SCRIPT
+
+If set, the lua scripts found by libquvi are printed to the stderr.
+
+ env LIBQUVI_SHOW_SCRIPT=1 quvi
+
+=head2 libcurl
+
+=head3 http_proxy
+
+http_proxy value is used if defined. Note, however, that C<--proxy> and
+C<--feature -proxy> both override this behaviour.
+
+=head1 EXIT STATUS
+
+quvi exits with 0 on success and E<gt>0 if an error occurred.
+
+ QUVI_OK               = 0x00
+ QUVI_MEM              = 0x01, Memory allocation failed
+                           (or invalid quvi command line option)
+ QUVI_BADHANDLE        = 0x02, Bad session handle
+ QUVI_INVARG           = 0x03, Invalid function (or command line) arg
+ QUVI_CURLINIT         = 0x04, libcurl initialization failed
+ QUVI_LAST             = 0x05, Indicates end of list iteration
+ QUVI_ABORTEDBYCALLBACK= 0x06, Aborted by callback function
+ QUVI_LUAINIT          = 0x07, Lua initialization failure
+ QUVI_NOLUAWEBSITE     = 0x08, Failed to find lua webscripts
+ QUVI_NOLUAUTIL        = 0x09, Failed to find the utility scripts
+ --
+ QUVI_NOSUPPORT        = 0x41, libquvi does not support the host
+ QUVI_CALLBACK         = 0x42, network callback error occurred
+ QUVI_ICONV            = 0x43, libiconv error occurred
+ QUVI_LUA              = 0x44, lua error occurred
+
+=head1 WWW
+
+ Home  : http://quvi.sourceforge.net/
+ gitweb: http://repo.or.cz/w/quvi-tool.git
+
+=head1 LICENSE
+
+quvi is free software, licensed under the LGPLv2.1+.
+
+=head1 SEE ALSO
+
+libquvi(3), libquvi-scripts(7)
+
+=head1 AUTHOR
+
+Toni Gundogdu E<lt>legatvs at sign gmail comE<gt>
+
+Thanks to all those who have contributed to the project by sending patches,
+reporting bugs and writing feedback. You know who you are.

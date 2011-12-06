@@ -1,0 +1,328 @@
+commit baa28a1
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Bump version to 0.4.1
+
+m4/version.m4
+
+commit 3cb02f5
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Update NEWS for 0.4.1
+
+NEWS
+
+commit 600c41f
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Make use of the unused enum
+
+src/quvi/quvi.c
+
+commit cd4b602
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Add "command line parser" section
+
+doc/man1/quvi.1.pod
+
+commit e7dd5be
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Add libcurl note about http_proxy
+
+doc/man1/quvi.1.pod
+
+commit f5f0491
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Add --feature to manual
+
+doc/man1/quvi.1.pod
+
+commit 213e2ab
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Add --verbosity to manual
+
+doc/man1/quvi.1.pod
+
+commit efa12f0
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Add --export-level, --export-format to manual
+
+doc/man1/quvi.1.pod
+
+commit 1e56bf5
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Revise --category in the manual
+
+doc/man1/quvi.1.pod
+
+commit bd2b886
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-26
+
+    Revise --query-formats, --format descriptions
+
+doc/man1/quvi.1.pod
+
+commit faf1569
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-25
+
+    Revise manual
+
+doc/man1/quvi.1.pod
+
+commit f8000db
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Use spew_qe instead
+
+src/quvi/quvi.c
+
+commit 11aff85
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Cleanup ggo
+
+src/quvi/cmdline.ggo
+
+commit e163479
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Do not use atexit(3)
+
+configure.ac
+src/quvi/quvi.c
+
+commit 15e373e
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    FIX: Do not show warning with "mute" level
+
+src/quvi/quvi.c
+
+commit 795ccbc
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-27
+
+    Accept multiple occurences of --exec
+
+src/quvi/cmdline.ggo
+src/quvi/quvi.c
+
+commit 84eaad4
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-27
+
+    Add --feature, depr. --no-*
+
+src/quvi/cmdline.ggo
+src/quvi/quvi.c
+
+commit c7b8693
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-27
+
+    Add --verbosity, depr. --quiet, --verbose-libcurl
+    
+     * Add new verbosity level 'mute'
+
+src/quvi/cmdline.ggo
+src/quvi/quvi.c
+
+commit c3cfd91
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-27
+
+    Add --export-format, depr. --xml
+
+src/quvi/cmdline.ggo
+src/quvi/quvi.c
+
+commit 16ce16c
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-27
+
+    Replace --export-errors with --export-level
+
+src/quvi/cmdline.ggo
+src/quvi/quvi.c
+
+commit a4900eb
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-27
+
+    Re-implement --category using enums
+
+src/quvi/cmdline.ggo
+src/quvi/quvi.c
+
+commit 7621bd6
+Merge: 44b4847 3ac6c46
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-28
+
+    Merge branch 'tj/maint-properly-escape' into next
+
+commit 3ac6c46
+Author: Tomas Janousek <tomi@nomi.cz>
+Date:   2011-11-28
+
+    Properly escape strings passed to shell
+
+src/quvi/quvi.c
+
+commit 44b4847
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-24
+
+    Add process_queue
+
+src/quvi/quvi.c
+
+commit 0a56be5
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-24
+
+    Rewrite command line parsing
+
+src/quvi/quvi.c
+
+commit 43f684b
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-24
+
+    FIX Override config values from cmdline
+    
+    Check $opt_arg with strings, instead. gengetopt generated
+    code resets the $opt_given flags with config files.
+    
+     * parse_categories: Use "opts" global variable instead
+     * Rename "inputs" global variable
+
+src/quvi/quvi.c
+
+commit 5e2e006
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-24
+
+    Address warnings spewed by splint
+    
+    Noteworthy changes:
+    
+     * BUGFIX quvi.c:643:10: Variable quvi shadows outer declaration
+       An outer declaration is shadowed by the local declaration.
+       quvi.c:47:15: Previous definition of quvi: quvi_t
+    
+     * Rewrite open_file as read_file
+
+src/quvi/quvi.c
+
+commit faafc1f
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-23
+
+    Cleanup
+    
+     * check_category
+     * parse_categories
+
+src/quvi/quvi.c
+
+commit 743e435
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-23
+
+    Revise manual for --category
+
+doc/man1/quvi.1.pod
+
+commit 311e01a
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-23
+
+    Add --category, depr. --category-*
+
+src/quvi/cmdline.ggo
+src/quvi/quvi.c
+
+commit 11dd732
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-23
+
+    Add --export-errors to manual
+
+doc/man1/quvi.1.pod
+
+commit d878ad0
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-11-23
+
+    Add --export-errors (#61)
+    
+     * http://sourceforge.net/apps/trac/quvi/ticket/61
+
+src/quvi/cmdline.ggo
+src/quvi/quvi.c
+
+commit edc1de4
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-10-05
+
+    Update NEWS for 0.4.0
+
+NEWS
+
+commit cbe4194
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-23
+
+    Remove config.aux
+
+autogen.sh
+
+commit 1c8a801
+Author: Toni Gundogdu <legatvs@gmail.com>
+Date:   2011-09-15
+
+    Split from git://repo.or.cz/quvi.git
+
+.gitignore
+AUTHORS
+COPYING
+INSTALL
+Makefile.am
+README
+autogen.sh
+configure.ac
+doc/Makefile.am
+doc/man1/Makefile.am
+doc/man1/quvi.1.pod
+gen-ver.sh
+m4/version.m4
+src/Makefile.am
+src/quvi/Makefile.am
+src/quvi/asprintf.c
+src/quvi/cmdline.ggo
+src/quvi/platform.h
+src/quvi/quvi.c
+src/quvi/strepl.c
+src/quvi/vasprintf.c
