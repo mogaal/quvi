@@ -1,0 +1,32 @@
+
+0.4.1  Mon Nov 28 2011  Toni Gundogdu
+Changes:
+  - Accept multiple occurences of --exec
+  - Add verbosity level 'mute'
+  - Add new options:
+        --export-format
+        --export-level
+        --verbosity
+        --category
+        --feature
+  - Deprecate options:
+        --verbose-libcurl
+        --category-*
+        --quiet
+        --no-*
+        --xml
+Fixes:
+  - Properly escape strings passed to shell (#79)
+    Many thanks to Tomas Janousek <tomi@nomi.cz> for the patch!
+
+
+0.4.0  Wed Oct 05 2011  Toni Gundogdu
+Changes:
+  - Split from "quvi", new repo at <http://repo.or.cz/w/quvi-tool.git>
+  - Make --category-all new default (prev. --category-http)
+  - Extend --exec to support %t, page title (#41)
+  - Remove deprecated "--format (help|list)"
+  - Remove deprecated "--no-shortened"
+  - Remove deprecated "--old"
+
+For earlier notes, see <http://repo.or.cz/w/quvi.git/blob/HEAD:/NEWS>.

@@ -1,0 +1,16 @@
+Source: quvi
+Section: utils
+Priority: extra
+Maintainer: Alejandro Garrido Mota <garridomota@gmail.com>
+Build-Depends: debhelper (>= 8.0.0), autotools-dev, libquvi7 (>= 0.4.0 )
+Standards-Version: 3.9.2
+Homepage: http://quvi.sourceforge.net
+Vcs-Git: git://github.com/mogaal/quvi.git
+Vcs-Browser: https://github.com/mogaal/quvi
+
+Package: quvi
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: command line tool for parsing video download links
+ command line tool for parsing video download links. It
+ supports Youtube and other similar video websites.

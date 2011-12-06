@@ -1,0 +1,46 @@
+package "quvi"  version ""
+option "version"         -  "Print version and exit"                  optional
+option "license"         -  "Print license and exit"                  optional
+option "support"         -  "Print supported websites and exit"       optional
+option "query-formats"   F  "Query available formats to URL"          optional
+option "agent"           -  "Identify as"                             optional
+                                string  typestr="value"  default="Mozilla/5.0"
+option "proxy"           -  "Use proxy with HTTP connections"         optional
+                                string  typestr="value"
+option "connect-timeout" -  "Seconds connecting allowed to take"      optional
+                                int     typestr="value"  default="30"
+option "exec"            -  "Execute command when done parsing"       optional
+                                string  typestr="value"  multiple
+option "format"          f  "Query for format of media"               optional
+                                string  typestr="value"  default="default"
+option "verbosity"       v  "Verbosity level of printed messages"     optional
+                                enum    typestr="value"  default="verbose"
+                                values="debug","verbose","quiet","mute"
+option "category"        c  "Level of libquvi scripts to enable"      optional
+                                enum    typestr="value"  default="all"
+                                values="http","mms","rtsp","rtmp","all"
+                                multiple
+option "export-format"   d  "Export in data interchange format"       optional
+                                enum    typestr="value"  default="json"
+                                values="json","xml"
+option "export-level"    l  "Level of exported data"                  optional
+                                enum    typestr="value"  default="media"
+                                values="media","+errors"
+option "feature"         e  "Enable (or disable) feature"             optional
+                                enum    typestr="value"
+                                values="resolve","-resolve","verify","-verify",
+                                       "proxy","-proxy"
+                                multiple
+
+section "Deprecated"
+option "category-all"    a  "All website script categories" optional
+option "category-http"   -  "Category HTTP website scripts" optional
+option "category-mms"    -  "Category MMS website scripts"  optional
+option "category-rtsp"   -  "Category RTSP website scripts" optional
+option "category-rtmp"   -  "Category RTMP website scripts" optional
+option "xml"             -  "Print details in XML"          optional
+option "quiet"           q  "Turn off output to stderr"     optional
+option "verbose-libcurl" -  "Turn on libcurl verbose mode"  optional
+option "no-resolve"      r  "Do not resolve redirections"   optional
+option "no-verify"       n  "Do not verify media URL"       optional
+option "no-proxy"        -  "Disable use of HTTP proxy"     optional

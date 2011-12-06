@@ -1,0 +1,48 @@
+
+
+Prerequisites
+=============
+
+* libquvi  0.4.0+  <http://quvi.sourceforge.net/>
+
+
+Installation from source
+========================
+
+REMINDER: Run "make uninstall" if you have installed quvi from the
+source previously.
+
+  * How to use GNU Autotools build system falls outside of the scope of
+  this documentation, refer to the appropriate sources instead
+
+  * IF you are unsure, THEN do not install from the source
+    - quvi is available to many distros as a precompiled package
+
+    - Precompiled packages (ideally) make sure that no old files are
+      left behind when the software is upgraded or uninstalled
+
+    - Any old files left behind on your system may potentially interfere
+      with the new version of quvi
+
+  * Consider yourself reminded
+
+"./configure && make install", typically. See also "./configure --help".
+If you are compiling quvi from the development code from the git
+repository, see "Installation from development code", instead.
+
+  --without-manual    Do not install manual page(s)
+
+
+Installation from development code
+==================================
+
+If you are compiling quvi from the development code, run "autogen.sh",
+first. This generates the configuration files that are not in the git
+repository. You will need:
+
+  * GNU Autotools (autoconf, automake, etc.)
+  * Perl (with pod2man)
+  * GNU gengetopt
+
+Once the files have been generated, follow the instructions in "Installation
+from source" above.
